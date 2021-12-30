@@ -2,8 +2,10 @@
 从零开始的X86汇编语言学习
 
 ## 认识8086处理器
+<https://github.com/impact-eintr/x86/blob/main/ch1/README.md>
 
 ## 汇编语言与汇编软件
+<https://github.com/impact-eintr/x86/blob/main/ch2/README.md>
 
 ## 如何执行编译好的程序
 
