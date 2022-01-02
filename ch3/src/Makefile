@@ -10,4 +10,4 @@ build:
 .PHONY: clean
 
 clean:
-	$(RM) ./*.img ./*.o ./*.lst
+	$(RM) ./*.img ./*.o ./*.lst ./*.lock
