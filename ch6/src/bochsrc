@@ -1,0 +1,29 @@
+###########
+# bochsrc #
+###########
+
+# 使用的内存，单位MB
+megs: 32
+
+# 读取的bios rom
+romimage: file=/usr/share/bochs/BIOS-bochs-latest
+vgaromimage: file=/usr/share/bochs/VGABIOS-lgpl-latest
+
+# 使用的软盘镜像
+# floppya: 1_44=hd60M.img, status=inserted
+
+# 使用的磁盘镜像
+ata0-master: type=disk, path="b.img"
+
+# 引导类型
+boot: disk
+
+# 日志输出路径
+log: bochs.out
+
+# 外设
+mouse: enabled=0
+# 注意这里与书中不同，书中的配置方式已过时，无法正常启动
+keyboard: keymap=/usr/share/bochs/keymaps/x11-pc-us.map
+
+ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14
