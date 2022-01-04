@@ -4,22 +4,20 @@
 ## 认识8086处理器
 <https://github.com/impact-eintr/x86/blob/main/ch1/README.md>
 
-## 汇编语言与汇编软件
+## 汇编语言与执行编译好的程序
 <https://github.com/impact-eintr/x86/blob/main/ch2/README.md>
 
-## 如何执行编译好的程序
-
-## 准备开发与测试环境
-
-## 在屏幕上显示文本
-
-## 在屏幕上显示数字
+## 在屏幕上显示文本、数字
+<https://github.com/impact-eintr/x86/blob/main/ch3/README.md>
 
 ## 循环、批量传送和条件转移
+<https://github.com/impact-eintr/x86/blob/main/ch4/README.md>
 
 ## 计算机中的负数
+<https://github.com/impact-eintr/x86/blob/main/ch5/README.md>
 
-## 西欧呢个1加到100并显示结果
+## 从1加到100并显示结果
+<https://github.com/impact-eintr/x86/blob/main/ch6/README.md>
 
 ## INTEL 8086处理器的寻址方法
 
