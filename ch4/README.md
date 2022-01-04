@@ -305,7 +305,7 @@ number times 5 db 0
 
 > CF Carry Flag 进位标志
 
-当一个算术操作在结果的最高位产生进位或者借位时，此标志为1,否则为0
+当一个算术操作在结果的最高位产生进位或者借位时，此标志为1,否则为0。
 
 ``` assembly
 mov al, 0x80 ; 1000 0000
@@ -314,20 +314,28 @@ add al, al CF==1
 
 > PF Parity Flag 奇偶标志
 
+当一个算术运算的结果在低8位中有偶数个"1"，此标志是1,否则为0。
 ``` assembly
-
+  mov al, 0b00100110
+  xor al, 3          ; PF == 0
+  mov al, 0b00100110
+  xor al, 1          ; PF == 1
 ```
 
-> AF
+> AF Adjust Flag 调整标志
 
+当一个算数操作在结果的位3产生进位或者借位时此标志是1；否则是0。此标志用于二进制编码的十进制算法里。
 ``` assembly
-
+mov ah, 247
+sub ah, 8   ; AF == 1
 ```
 
 > ZF Zero Flag 
 
+当运算的结果为0时，此标志为1,否则为0
 ``` assembly
-
+mov ax, 25
+sub ax, 25 ; ZF == 1
 ```
 
 > SF Sign Flag
@@ -335,10 +343,8 @@ add al, al CF==1
 用运算结果的最高位来设置此标志(一般来说，这一位是有符号的符号位。0表示正数，1表述负数)
 
 ``` assembly
-  mov si, 1
-  dec si
-  dec si
-  SF == 1
+mov ah, 127
+add ah, 1 ; SF == 1
 ```
 
 > TF
@@ -355,20 +361,72 @@ add al, al CF==1
 ```
 
 
-> DF
+> DF Direction Flag
 
+DF == 0指示传送方向为 从低到高
+DF == 1指示传送方向为 从高到低
 ``` assembly
-
+  cld                           ;方向标志清零指令 指示传送方向为 从低到高
 ```
 
 > OF Overflow Flag 溢出标志
 
+对任何一个算术运算，假定它进行的是有符号运算。那么，当结果超出目标位置所能容纳的最大或者最小负数时，此标志为1，表述有符号运算的结果已经溢出否则为0
 ``` assembly
 mov ah, 155
 add ah, ah
 OF == 1
 ```
 
+![img](img/指令对标志位的影响)
+
 ## 条件转移指令和CMP指令
+> 部分条件转移指令
 
+- js SF = 1 jmp 
+- jns SF == 1 jmp
+- jz ZF = 1 jmp
+- jnz ZF == 0 jmp
+- jo OF == 1 jmp
+- jno OF == 0 jmp
+- jc CF == 1 jmp
+- jnc CF == 0 jmp
+- jp PF == 0 jmp
+- jnp PF == 1 jmp
 
+> CMP指令是用于条件转移指令的数字比较指令 可以类比if(){}
+
+`cmp r/m, r/m/imm`
+
+**影响CF OF SF ZF AF和PF标志位**
+
+``` assembly
+cmp al, 35
+cmp dx, ax
+cmp dx, [0x2002]
+cmp byte [0x2005], 37
+cmp [0x2008], ax
+```
+
+| 指令 | 描述                         | 比较结果   | 相关标志位 |
+|:----:|:----------------------------:|:----------:|:----------:|
+| je   | jump if Equal                | 等于       |            |
+| jne  | jump if not equal            | 不等于     |            |
+| jg   | jump if greater              | 大于       |            |
+| jge  | jump if greater or equal     | 大于等于   |            |
+| jng  | jump if not greater          | 不大于     |            |
+| jnge | jump if not greater or equal | 不大于等于 |            |
+| jl   | jump if less                 | 小于       |            |
+| jle  | jump if less or equal        | 小于等于   |            |
+| jnle | jump if not less             | 不小于     |            |
+| jnle | jump if not less or equal    | 不小于等于 |            |
+| ja   | jump if above                | 高于       |            |
+| jae  | jump if not above            | 高于等于   |            |
+| jna  | jump if not above            | 不高于     |            |
+| jnae | jump if not above ot equal   | 不高于等于 |            |
+| jb   | jump if below                | 低于       |            |
+| jbe  | jump if not below            | 低于等于   |            |
+| jnb  | jump if not below            | 不低于     |            |
+| jnbe | jump if not below ot equal   | 不低于等于 |            |
+| jpe  | jump if parity Even          | 校验为偶   |            |
+| jpo  | jump if parity Odd           | 校验为奇   |            |
