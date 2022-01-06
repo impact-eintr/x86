@@ -20,12 +20,16 @@
 <https://github.com/impact-eintr/x86/blob/main/ch6/README.md>
 
 ## INTEL 8086处理器的寻址方法
+<https://github.com/impact-eintr/x86/blob/main/ch7/README.md>
 
 ## 硬盘的显卡的访问与控制
+<https://github.com/impact-eintr/x86/blob/main/ch8/README.md>
 
 ## 终端与动态时钟显示
+<https://github.com/impact-eintr/x86/blob/main/ch9/README.md>
 
 ## 32位x86处理器编程架构
+<https://github.com/impact-eintr/x86/blob/main/ch10/README.md>
 
 ## 进入保护模式
 
