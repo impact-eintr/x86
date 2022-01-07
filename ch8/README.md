@@ -389,11 +389,64 @@ read_hard_disk_0:               ;从硬盘读取一个逻辑扇区
 
 ## 加载整个用户程序
 
-a![img](img/程序内存布局.png)
+![img](img/程序内存布局.png)
+
+![img](img/header.png)
+
+
 
 ## 用户程序的重定位
 
+段的汇编地址+用户程序的起始物理地址
+
+![img](img/程序的重定位.png)
+
+``` assembly
+  ;; 计算入口点代码段基址
+  ;; 包括 入口点: 偏移地址 用不着计算 一个字的长度
+  ;;      入口点所在代码段的 汇编地址 两个字的长度
+direct:
+  ;; ds已经恢复
+  ;; 为什么从6开始 不应该是4? 这里是在计算入口代码所在的代码段的汇编地址
+  mov dx, [0x08]
+  mov ax, [0x06]
+  call calc_segment_base
+  mov [0x06], ax                ;回填修正后的入口点代码段基址
+ 
+```
+
 ## 比特位的移动指令
+> 逻辑右移
+
+`shr r/m, imm8/cl`
+![img](img/逻辑右移.png)
+
+> 循环右移
+
+`ror r/m, imm8/cl`
+![img](img/循环右移.png)
+
+``` assembly
+;; ---------------------------calc_segment_base-------------------------------------
+;; 根据用户程序的其实物理内存地址 计算段的真实物理地址 再转换成段地址
+calc_segment_base:              ;计算16位段地址
+                                ;输入: DX:AX=32位汇编地址
+                                ;返回: AX=16位段基地址
+  push dx
+
+  add ax, [cs:phy_base]
+  adc dx, [cs:phy_base+0x02]    ;带进位的加法 把上一步可能的进位加上
+  shr ax, 4
+  ror dx, 4
+  and dx, 0xf000
+  or ax, dx
+
+  pop dx
+
+  ret
+
+
+```
 
 ## 转到用户程序内部执行
 
@@ -418,3 +471,4 @@ a![img](img/程序内存布局.png)
 ## 在程序中访问不同的数据段
 
 ## 使用新版FixVhdWr写虚拟硬盘并运行程序
+
